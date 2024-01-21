@@ -1,0 +1,14 @@
+{
+  "name": "kandinsky",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.5",
+    "form-data": "^4.0.0",
+    "nodemon": "^3.0.3"
+  }
+}
