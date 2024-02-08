@@ -78,12 +78,12 @@ async function checkGeneration(id) {
   }
 }
 
-async function start() {
+async function start(promt, style) {
   TextImageApi();
   await getModels();
   const uuid = await generate({
-    promt: "Пиклельная графика, пикселярт, дом, пиксельный дом",
-    style: "",
+    promt: promt,
+    style: style,
   });
   const images = await checkGeneration(uuid);
   const base64Sting = images[0];
@@ -100,4 +100,4 @@ async function start() {
   //console.log(base64Sting);
 }
 
-start();
+start("Пиклельная графика, пикселярт, дом, пиксельный дом", "");
