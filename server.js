@@ -33,7 +33,6 @@ async function generate({ promt, style }) {
     },
   };
 
-  console.log(params);
   const formData = new FormData();
   const modelIdData = { value: 4, options: { contentType: null } };
   const paramsData = {
@@ -50,12 +49,13 @@ async function generate({ promt, style }) {
     "Content-Type: multipart/form-data"
   );
   const data = response.data;
+  console.log(data, params);
 
   return data.uuid;
 }
 
 async function checkGeneration(id) {
-  let attempts = 10;
+  let attempts = 100;
   while (attempts > 0) {
     try {
       const response = await axios.get(
@@ -74,30 +74,47 @@ async function checkGeneration(id) {
       }, 5000);
     }
     attempts--;
-    await new Promise((resolve) => setTimeout(resolve, 10 * 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 }
 
-async function start(promt, style) {
+async function start(promt = "векторная графика", style = "DEFAULT") {
+  console.time("status");
+  const promtsArray = [
+    "человек смотрит в камеру",
+    "кот смотрит в камеру",
+    "hello kity",
+    "каппибара смотрит в камеру",
+  ];
+  const randomPromt = Math.floor(Math.random() * promtsArray.length);
+  console.log(promtsArray[randomPromt]);
   TextImageApi();
+
   await getModels();
+
   const uuid = await generate({
-    promt: promt,
+    promt: promt + `, ${promtsArray[randomPromt]}`,
     style: style,
   });
-  const images = await checkGeneration(uuid);
-  const base64Sting = images[0];
+  try {
+    const images = await checkGeneration(uuid);
+    const base64Sting = images[0];
 
-  const base64Data = base64Sting.replace(/^data:image\/\w+;base64,/, "");
+    const base64Data = base64Sting.replace(/^data:image\/\w+;base64,/, "");
 
-  const buffer = Buffer.from(base64Data, "base64");
+    const buffer = Buffer.from(base64Data, "base64");
 
-  fs.writeFile(`generate/${uuid}.jpg`, buffer, "base64", (err) => {
-    if (err) console.log(err);
+    fs.writeFile(`generate/${uuid}.jpg`, buffer, "base64", (err) => {
+      if (err) console.log(err);
+      console.timeEnd("status");
+      start();
 
-    console.log(`Генерация изображения (${uuid}) завершенна`);
-  });
-  //console.log(base64Sting);
+      console.log(`Генерация изображения (${uuid}) завершенна`);
+    });
+    //console.log(base64Sting);
+  } catch (err) {
+    start();
+  }
 }
 
-start("Пиклельная графика, пикселярт, дом, пиксельный дом", "");
+start();
