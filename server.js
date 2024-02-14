@@ -11,10 +11,38 @@ function TextImageApi() {
 
   return { URL, AUTH_HEADERS };
 }
+const apiKey = {
+  URL: "https://api-key.fusionbrain.ai/",
+  AUTH_HEADERS: 
+  JSON.stringify({ 
+    "X-Key": `Key A331583131633E853846E3359B9E3103`,
+    "X-Secret": `Secret 26F9875AC66E5C90ABD9B7C59A9AD675`
+  })
+}
+
+const arrayApiKeys = [
+  {
+    URL: "https://api-key.fusionbrain.ai/",
+    AUTH_HEADERS: 
+      JSON.stringify({ 
+        "X-Key": `Key A331583131633E853846E3359B9E3103`,
+        "X-Secret": `Secret 26F9875AC66E5C90ABD9B7C59A9AD675`
+      })
+  },
+  {
+    URL: "https://api-key.fusionbrain.ai/",
+    AUTH_HEADERS: 
+      JSON.stringify({ 
+        "X-Key": `Key DAFE7BCABE8B852AE4EF9D6F73D1920B`,
+        "X-Secret": `Secret DDBC0A6D9029B0E112E83D811AD734A5`
+      })
+  }
+]
+
 
 async function getModels() {
-  const response = await axios.get(`${TextImageApi().URL}key/api/v1/models`, {
-    headers: TextImageApi().AUTH_HEADERS,
+  const response = await axios.get(`${apiKey.URL}key/api/v1/models`, {
+    headers: JSON.parse(apiKey.AUTH_HEADERS) ,
   });
 
   return response.data[0].id;
@@ -43,15 +71,15 @@ async function generate({ promt, style }) {
   formData.append("params", paramsData.value, paramsData.options);
 
   const response = await axios.post(
-    `${TextImageApi().URL}key/api/v1/text2image/run`,
+    `${apiKey.URL}key/api/v1/text2image/run`,
     formData,
-    { headers: { ...formData.getHeaders(), ...TextImageApi().AUTH_HEADERS } },
+    { headers: { ...formData.getHeaders(), ...JSON.parse(apiKey.AUTH_HEADERS ) } },
     "Content-Type: multipart/form-data"
   );
   const data = response.data;
   console.log(data, params);
 
-  return data.uuid;
+  return data.uuid; 
 }
 
 async function checkGeneration(id) {
@@ -59,8 +87,8 @@ async function checkGeneration(id) {
   while (attempts > 0) {
     try {
       const response = await axios.get(
-        `${TextImageApi().URL}key/api/v1/text2image/status/${id}`,
-        { headers: TextImageApi().AUTH_HEADERS }
+        `${apiKey.URL}key/api/v1/text2image/status/${id}`,
+        { headers: JSON.parse(apiKey.AUTH_HEADERS)  }
       );
       const data = response.data;
 
@@ -88,7 +116,7 @@ async function start(promt = "векторная графика", style = "DEFAU
   ];
   const randomPromt = Math.floor(Math.random() * promtsArray.length);
   console.log(promtsArray[randomPromt]);
-  TextImageApi();
+
 
   await getModels();
 
