@@ -5,7 +5,6 @@ async function getModels({ apiKey }) {
     headers: JSON.parse(apiKey.AUTH_HEADERS),
   });
 
-  //console.log(response.data[0]);
   return response.data[0].id;
 }
 

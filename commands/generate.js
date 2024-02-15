@@ -23,6 +23,8 @@ async function generate({ promt, style, apiKey }) {
   formData.append("model_id", modelIdData.value, modelIdData.options);
   formData.append("params", paramsData.value, paramsData.options);
 
+  console.log(`Промт: ${params.generateParams.query} Стиль: ${params.style}`);
+
   const response = await axios.post(
     `${apiKey.URL}key/api/v1/text2image/run`,
     formData,
@@ -32,7 +34,6 @@ async function generate({ promt, style, apiKey }) {
     "Content-Type: multipart/form-data"
   );
   const data = response.data;
-  console.log(data, params);
 
   return data.uuid;
 }

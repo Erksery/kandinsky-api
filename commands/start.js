@@ -16,18 +16,23 @@ async function start({
     "каппибара смотрит в камеру",
   ];
 
-  const subPromtsArray = [
-    "блондин",
-    "черные волосы",
-    "Красные глаза",
-    "Желтые глаза",
-    "Голубые глаза",
-    "Зеленые глаза",
+  const subPromtsArray = ["Махает рукой"];
+
+  const backgroundPromt = [
+    "фон красного цвета",
+    "фон голубого цвета",
+    "город на фоне",
+    "лес на фоне",
+    "фон розового цвета",
   ];
 
   const subPromts = [];
 
   const randomPromt = Math.floor(Math.random() * promtsArray.length);
+
+  const randomBackgroundPromt = Math.floor(
+    Math.random() * backgroundPromt.length
+  );
 
   for (let i = 0; i <= 3; i++) {
     function random() {
@@ -40,12 +45,14 @@ async function start({
     random();
   }
 
-  console.log(subPromts);
-
   await getModels({ apiKey });
 
   const uuid = await generate({
-    promt: promt + `, ${promtsArray[randomPromt]}` + ` ${subPromts.join(",")}`,
+    promt:
+      promt +
+      `, ${promtsArray[randomPromt]}, ${
+        backgroundPromt[randomBackgroundPromt]
+      }, ${subPromts.join(",")}, `,
     style: style,
     apiKey,
   });
@@ -64,9 +71,8 @@ async function start({
 
       console.log(`Генерация изображения (${uuid}) завершенна`);
     });
-    //console.log(base64Sting);
   } catch (err) {
-    start();
+    console.log(err);
   }
 }
 

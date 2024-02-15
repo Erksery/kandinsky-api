@@ -1,16 +1,4 @@
-const FormData = require("form-data");
-const axios = require("axios");
-const fs = require("fs");
-const { checkGeneration } = require("./commands/checkGeneration");
 const { start } = require("./commands/start");
-
-// const apiKey = {
-//   URL: "https://api-key.fusionbrain.ai/",
-//   AUTH_HEADERS: JSON.stringify({
-//     "X-Key": `Key A331583131633E853846E3359B9E3103`,
-//     "X-Secret": `Secret 26F9875AC66E5C90ABD9B7C59A9AD675`,
-//   }),
-// };
 
 const arrayApiKeys = [
   {
@@ -84,6 +72,7 @@ const arrayApiKeys = [
     }),
   },
 ];
+
 arrayApiKeys.map((apiKey) => {
   start({ apiKey });
 });

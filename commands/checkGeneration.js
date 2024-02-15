@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { generate } = require("./generate");
 
 async function checkGeneration({ uuid, apiKey }) {
   let attempts = 100;
@@ -16,11 +17,12 @@ async function checkGeneration({ uuid, apiKey }) {
       }
     } catch (err) {
       console.log("111", err);
-      console.log("Ошибка при генерации изображения, пробуем снова");
+      console.log("Ошибка при генерации изображения");
       // setTimeout(() => {
       //   checkGeneration({ uuid, apiKey });
       // }, 5000);
     }
+
     attempts--;
     await new Promise((resolve) => setTimeout(resolve, 5000));
   }
