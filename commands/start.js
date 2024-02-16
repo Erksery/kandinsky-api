@@ -1,7 +1,9 @@
+const axios = require("axios");
 const { checkGeneration } = require("./checkGeneration");
 const { generate } = require("./generate");
 const { getModels } = require("./getModel");
 const fs = require("fs");
+const { getPromts } = require("../getPromts");
 
 async function start({
   promt = "векторная графика",
@@ -49,11 +51,12 @@ async function start({
 
   const uuid = await generate({
     promt:
-      promt +
-      `, ${promtsArray[randomPromt]}, ${
-        backgroundPromt[randomBackgroundPromt]
-      }, ${subPromts.join(",")}, `,
-    style: style,
+      //  promt +
+      `${await getPromts()}`,
+    //   `, ${promtsArray[randomPromt]}, ${
+    //     backgroundPromt[randomBackgroundPromt]
+    //   }, ${subPromts.join(",")}, `,
+    // style: style,
     apiKey,
   });
   try {
@@ -72,7 +75,8 @@ async function start({
       console.log(`Генерация изображения (${uuid}) завершенна`);
     });
   } catch (err) {
-    console.log(err);
+    console.log("Ошибка");
+    start({ apiKey });
   }
 }
 

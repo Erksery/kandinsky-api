@@ -16,7 +16,6 @@ async function checkGeneration({ uuid, apiKey }) {
         return data.images;
       }
     } catch (err) {
-      console.log("111", err);
       console.log("Ошибка при генерации изображения");
       // setTimeout(() => {
       //   checkGeneration({ uuid, apiKey });
@@ -24,7 +23,7 @@ async function checkGeneration({ uuid, apiKey }) {
     }
 
     attempts--;
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 10000));
   }
 }
 
