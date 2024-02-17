@@ -10,7 +10,7 @@ async function start({
   style = "DEFAULT",
   apiKey,
 }) {
-  console.time(apiKey);
+  //console.time(apiKey);
   const promtsArray = [
     "человек смотрит в камеру",
     "кот смотрит в камеру",
@@ -69,7 +69,7 @@ async function start({
 
     fs.writeFile(`generate/${uuid}.jpg`, buffer, "base64", (err) => {
       if (err) console.log(err);
-      console.timeEnd(apiKey);
+      //console.timeEnd(apiKey);
       start({ apiKey });
 
       console.log(`Генерация изображения (${uuid}) завершенна`);

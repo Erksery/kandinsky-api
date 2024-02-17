@@ -3,7 +3,7 @@ const axios = require("axios");
 const getPromts = async () => {
   try {
     const getPromts = await axios.get(
-      "https://playgroundai.com/api/images/risingFeed?category=&purePrompt=false&model=&is_top=true"
+      "https://playground.com/api/images/risingFeed?category=&purePrompt=false&model=&is_top=false"
     );
 
     const arrayImages = getPromts.data.risingImages;

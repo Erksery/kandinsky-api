@@ -15,20 +15,20 @@ const arrayApiKeys = [
       "X-Secret": `Secret DDBC0A6D9029B0E112E83D811AD734A5`,
     }),
   },
-  // {
-  //   URL: "https://api-key.fusionbrain.ai/",
-  //   AUTH_HEADERS: JSON.stringify({
-  //     "X-Key": `Key BC6276EE97ADD67604D41001E279FC21`,
-  //     "X-Secret": `Secret 664DC998E2ACA99E727CCCA0751E3700`,
-  //   }),
-  // },
-  // {
-  //   URL: "https://api-key.fusionbrain.ai/",
-  //   AUTH_HEADERS: JSON.stringify({
-  //     "X-Key": `Key 1189B3E57401F09E71C5500A18A18278`,
-  //     "X-Secret": `Secret 440C6EA9A259ABB3CA50A14FE42E363C`,
-  //   }),
-  // },
+  {
+     URL: "https://api-key.fusionbrain.ai/",
+    AUTH_HEADERS: JSON.stringify({
+    "X-Key": `Key BC6276EE97ADD67604D41001E279FC21`,
+     "X-Secret": `Secret 664DC998E2ACA99E727CCCA0751E3700`,
+    }),
+  },
+   {
+    URL: "https://api-key.fusionbrain.ai/",
+    AUTH_HEADERS: JSON.stringify({
+     "X-Key": `Key 1189B3E57401F09E71C5500A18A18278`,
+      "X-Secret": `Secret 440C6EA9A259ABB3CA50A14FE42E363C`,
+    }),
+   },
   // {
   //   URL: "https://api-key.fusionbrain.ai/",
   //   AUTH_HEADERS: JSON.stringify({
@@ -74,5 +74,7 @@ const arrayApiKeys = [
 ];
 
 arrayApiKeys.map((apiKey) => {
+  console.time(apiKey)
   start({ apiKey });
+  console.log(apiKey)
 });
